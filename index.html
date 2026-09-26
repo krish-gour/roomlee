@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roomly — Find a room that fits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#18231d;--muted:#68736d;--cream:#f6f3eb;--paper:#fffdf8;--green:#2e6249;--green2:#3e7b5b;--line:#e4e2d9;--gold:#c99a43;--shadow:0 16px 45px rgba(24,35,29,.08)}
+*{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+nav{height:72px;background:rgba(255,253,248,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)}
+.logo{font-family:"Playfair Display";font-size:26px}.logo span{color:var(--green)}
+.navlinks{display:flex;gap:28px;align-items:center}.navlinks a{color:var(--muted);text-decoration:none;font-size:14px}.navlinks a:hover{color:var(--ink)}
+.btn{border:0;border-radius:12px;padding:11px 17px;font-weight:600}.btn.primary{background:var(--green);color:#fff}.btn.primary:hover{background:#234c38}.btn.light{background:#eef1eb;color:var(--green)}
+.hero{padding:70px 6% 45px;display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;max-width:1400px;margin:auto}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;color:var(--green2);font-weight:700;font-size:12px}.hero h1{font-family:"Playfair Display";font-size:clamp(42px,6vw,76px);line-height:.98;margin:14px 0 20px;max-width:700px}.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:590px}
+.searchbox{margin-top:28px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:10px;display:grid;grid-template-columns:1fr 1fr 1fr auto;box-shadow:var(--shadow);max-width:760px}.searchbox input,.searchbox select{border:0;background:transparent;padding:13px;outline:none;color:var(--ink);min-width:0}.searchbox button{border-radius:12px}
+.hero-card{background:var(--green);color:#fff;border-radius:28px;padding:28px;min-height:360px;position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;width:240px;height:240px;border:1px solid rgba(255,255,255,.15);border-radius:50%;right:-60px;bottom:-80px}.hero-card h3{font-family:"Playfair Display";font-size:32px;margin:25px 0 12px}.mini-room{height:170px;border-radius:18px;background:linear-gradient(135deg,#b9b19d,#e5ddd0 45%,#817d72);position:relative;overflow:hidden}.mini-room:before{content:"";position:absolute;left:18%;bottom:0;width:52%;height:43%;background:#eee8dc;border-radius:60px 60px 0 0}.mini-room:after{content:"";position:absolute;right:8%;top:18%;width:25%;height:45%;background:#dce5dc;border:8px solid #f7f2e8;box-shadow:inset 0 0 0 1px #8f9c93}
+.section{padding:35px 6% 75px;max-width:1400px;margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.section h2{font-family:"Playfair Display";font-size:36px;margin:0}.muted{color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px}.pill{border:1px solid var(--line);background:var(--paper);padding:9px 14px;border-radius:999px;font-size:13px}.pill.active{background:var(--green);color:#fff;border-color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(24,35,29,.04);transition:.2s}.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.photo{height:205px;position:relative;background-size:cover;background-position:center}.heart{position:absolute;right:13px;top:13px;width:39px;height:39px;border:0;border-radius:50%;background:rgba(255,255,255,.92);font-size:18px}.heart.saved{color:#b64b4b}.tag{position:absolute;left:13px;bottom:13px;background:#fff;padding:7px 10px;border-radius:8px;font-size:11px;font-weight:700}.cardbody{padding:17px}.cardbody h3{margin:0 0 6px;font-size:18px}.location{font-size:13px;color:var(--muted)}.price{font-weight:700;font-size:19px;margin:15px 0 12px}.price small{font-weight:400;font-size:12px;color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.meta span{background:#f0f1eb;border-radius:7px;padding:6px 8px;font-size:11px}.cardfooter{display:flex;justify-content:space-between;align-items:center;margin-top:16px}.details{font-size:13px;font-weight:700;color:var(--green);background:none;border:0;padding:0}
+.empty{padding:55px;text-align:center;border:1px dashed #c9c8bf;border-radius:18px;grid-column:1/-1}
+.modal{display:none;position:fixed;inset:0;background:rgba(18,26,22,.55);z-index:30;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalbox{width:min(720px,100%);max-height:92vh;overflow:auto;background:var(--paper);border-radius:22px;padding:28px}.close{float:right;border:0;background:#eef1eb;border-radius:50%;width:34px;height:34px}.modalbox h2{font-family:"Playfair Display";font-size:30px;margin:0 0 8px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700;color:var(--muted)}.field input,.field select,.field textarea{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;outline:none}.field textarea{min-height:85px;resize:vertical}.formactions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.detail-img{height:280px;border-radius:15px;background-size:cover;background-position:center;margin:18px 0}.detail-price{font-size:25px;font-weight:700}.detail-cols{display:grid;grid-template-columns:1.2fr .8fr;gap:25px}.facts{background:#f0f1eb;padding:18px;border-radius:15px}.facts div{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #dfe2d9;font-size:13px}.facts div:last-child{border:0}
+#toast{position:fixed;bottom:22px;right:22px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:10px;display:none;z-index:50;font-size:13px}
+footer{border-top:1px solid var(--line);padding:35px 6%;display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.searchbox{grid-template-columns:1fr 1fr}.searchbox button{grid-column:1/-1}.detail-cols{grid-template-columns:1fr}}
+@media(max-width:600px){.navlinks a{display:none}.hero{padding-top:45px}.grid{grid-template-columns:1fr}.searchbox{grid-template-columns:1fr}.section h2{font-size:29px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.hero-card{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">room<span>ly</span></div>
+  <div class="navlinks"><a href="#browse">Find a room</a><a href="#shortlist">Shortlist <span id="navCount"></span></a><button class="btn primary" onclick="openModal('listing')">List your room</button></div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Rent without the headache</div>
+    <h1>Find a room that actually fits your life.</h1>
+    <p>Browse rooms, compare rent and amenities, and save the places worth checking out. Homeowners can list available rooms in minutes.</p>
+    <div class="searchbox">
+      <input id="q" placeholder="City, neighborhood or room name">
+      <select id="type"><option value="">Any property type</option><option>1 RK</option><option>1 BHK</option><option>2 BHK</option><option>3 BHK</option><option>4+ BHK</option></select>
+      <select id="max"><option value="">Any budget</option><option value="8000">Under ₹8,000</option><option value="12000">Under ₹12,000</option><option value="18000">Under ₹18,000</option><option value="25000">Under ₹25,000</option></select>
+      <button class="btn primary" onclick="renderRooms()">Search</button>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="mini-room"></div>
+    <h3>Less scrolling.<br>More living.</h3>
+    <div style="opacity:.8;font-size:13px">Shortlist your favorites and compare them before you contact the owner.</div>
+  </div>
+</header>
+
+<section class="section" id="browse">
+  <div class="section-head"><div><div class="eyebrow">Browse listings</div><h2>Rooms available now</h2></div><div class="muted" id="resultCount"></div></div>
+  <div class="toolbar">
+    <button class="pill active" onclick="setSort('recommended',this)">Recommended</button>
+    <button class="pill" onclick="setSort('low',this)">Lowest rent</button>
+    <button class="pill" onclick="setSort('high',this)">Highest rent</button>
+    <button class="pill" onclick="showSaved()">Shortlisted</button>
+    <button class="pill" onclick="renderRooms()">All rooms</button>
+  </div>
+  <div class="grid" id="roomGrid"></div>
+</section>
+
+<section class="section" id="shortlist" style="padding-top:0">
+  <div class="section-head"><div><div class="eyebrow">Your picks</div><h2>Shortlist</h2></div></div>
+  <div class="grid" id="savedGrid"></div>
+</section>
+
+<footer><div><b>roomly</b> — a simple room-rental marketplace.</div><div>Built as a frontend prototype · Listings are stored locally in your browser.</div></footer>
+
+<div class="modal" id="modal">
+  <div class="modalbox" id="modalbox"></div>
+</div>
+<div id="toast"></div>
+
+<script>
+const starter=[
+{id:1,title:"Sunny private room near MP Nagar",city:"Bhopal",area:"MP Nagar",rent:8500,type:"1 BHK",deposit:"₹8,500",available:"Immediately",amenities:["Wi‑Fi","Furnished","AC"],owner:"Arjun",desc:"Bright furnished room in a quiet flat, close to cafés, offices and public transport.",img:"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=80"},
+{id:2,title:"Minimal room in a 2BHK",city:"Bhopal",area:"Kolar Road",rent:7000,type:"1 BHK",deposit:"₹7,000",available:"1 Oct 2026",amenities:["Wi‑Fi","Parking","Power backup"],owner:"Meera",desc:"Clean private room with shared kitchen and living room. Suitable for working professionals.",img:"https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1000&q=80"},
+{id:3,title:"Modern studio with balcony",city:"Bhopal",area:"Arera Colony",rent:14500,type:"1 RK",deposit:"₹29,000",available:"15 Oct 2026",amenities:["AC","Balcony","Kitchen"],owner:"Rohit",desc:"Self-contained studio with a compact kitchen, natural light and private balcony.",img:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80"},
+{id:4,title:"Affordable shared room",city:"Bhopal",area:"Shahpura",rent:5500,type:"1 BHK",deposit:"₹5,500",available:"Immediately",amenities:["Wi‑Fi","Furnished","Laundry"],owner:"Kabir",desc:"Budget-friendly shared room in a furnished apartment. Utilities are split between tenants.",img:"https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1000&q=80"},
+{id:5,title:"Quiet furnished room for students",city:"Bhopal",area:"Bawadiya Kalan",rent:9000,type:"1 BHK",deposit:"₹9,000",available:"5 Oct 2026",amenities:["Furnished","Wi‑Fi","CCTV"],owner:"Nisha",desc:"Furnished room in a well-maintained home, with a study desk and good natural light.",img:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80"},
+{id:6,title:"Large room with attached bathroom",city:"Bhopal",area:"Hoshangabad Road",rent:11000,type:"1 BHK",deposit:"₹11,000",available:"Immediately",amenities:["Attached bath","AC","Parking"],owner:"Vikram",desc:"Spacious room with attached bathroom and dedicated parking. Ideal for a single tenant.",img:"https://images.unsplash.com/photo-1564078516393-cf04bd966897?auto=format&fit=crop&w=1000&q=80"}
+];
+let custom=JSON.parse(localStorage.getItem("roomly_custom")||"[]");
+let rooms=[...custom,...starter];
+let saved=JSON.parse(localStorage.getItem("roomly_saved")||"[]");
+let sort="recommended", savedOnly=false;
+
+function money(n){return "₹"+Number(n).toLocaleString("en-IN")}
+function renderRooms(){
+ savedOnly=false;
+ let list=filterRooms();
+ list=sortRooms(list);
+ document.getElementById("resultCount").textContent=list.length+" listings";
+ document.getElementById("roomGrid").innerHTML=list.length?list.map(card).join(""):`<div class="empty">No rooms match those filters.<br><button class="btn light" style="margin-top:12px" onclick="clearFilters()">Clear filters</button></div>`;
+}
+function filterRooms(){
+ const q=document.getElementById("q").value.toLowerCase().trim(), type=document.getElementById("type").value, max=document.getElementById("max").value;
+ return rooms.filter(r=>(!q||`${r.title} ${r.city} ${r.area}`.toLowerCase().includes(q))&&(!type||r.type===type)&&(!max||r.rent<=+max));
+}
+function sortRooms(list){return [...list].sort((a,b)=>sort==="low"?a.rent-b.rent:sort==="high"?b.rent-a.rent:b.id-a.id)}
+function card(r){
+ const is=saved.includes(r.id);
+ return `<article class="card"><div class="photo" style="background-image:url('${r.img}')"><button class="heart ${is?'saved':''}" onclick="toggleSave(${r.id})">${is?'♥':'♡'}</button><span class="tag">${r.type}</span></div><div class="cardbody"><h3>${r.title}</h3><div class="location">${r.area}, ${r.city}</div><div class="price">${money(r.rent)} <small>/ month</small></div><div class="meta">${r.amenities.slice(0,3).map(x=>`<span>${x}</span>`).join("")}</div><div class="cardfooter"><span class="muted" style="font-size:12px">Available ${r.available}</span><button class="details" onclick="openDetail(${r.id})">View room →</button></div></div></article>`;
+}
+function toggleSave(id){
+ saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
+ localStorage.setItem("roomly_saved",JSON.stringify(saved)); renderRooms(); renderSaved(); toast(saved.includes(id)?"Added to shortlist":"Removed from shortlist");
+}
+function renderSaved(){
+ const list=rooms.filter(r=>saved.includes(r.id));
+ document.getElementById("savedGrid").innerHTML=list.length?list.map(card).join(""):`<div class="empty">Your shortlist is empty.<br>Tap ♡ on a room you want to compare later.</div>`;
+ document.getElementById("navCount").textContent=saved.length?`(${saved.length})`:"";
+}
+function showSaved(){savedOnly=true;const list=rooms.filter(r=>saved.includes(r.id));document.getElementById("resultCount").textContent=list.length+" saved";document.getElementById("roomGrid").innerHTML=list.length?list.map(card).join(""):`<div class="empty">No shortlisted rooms yet.</div>`}
+function setSort(s,el){sort=s;document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderRooms()}
+function clearFilters(){document.getElementById("q").value="";document.getElementById("type").value="";document.getElementById("max").value="";renderRooms()}
+function openDetail(id){
+ const r=rooms.find(x=>x.id===id); if(!r)return;
+ document.getElementById("modalbox").innerHTML=`<button class="close" onclick="closeModal()">×</button><div class="eyebrow">${r.type} · ${r.area}</div><h2>${r.title}</h2><div class="detail-img" style="background-image:url('${r.img}')"></div><div class="detail-cols"><div><div class="detail-price">${money(r.rent)} <span style="font-size:13px;color:var(--muted);font-weight:400">/ month</span></div><p class="muted" style="line-height:1.7">${r.desc}</p><h4>What you get</h4><div class="meta">${r.amenities.map(x=>`<span>${x}</span>`).join("")}</div></div><div class="facts"><div><b>Deposit</b><span>${r.deposit}</span></div><div><b>Available</b><span>${r.available}</span></div><div><b>Owner</b><span>${r.owner}</span></div><div><b>Location</b><span>${r.area}</span></div></div></div><div class="formactions"><button class="btn light" onclick="toggleSave(${r.id});openDetail(${r.id})">${saved.includes(r.id)?"♥ Shortlisted":"♡ Shortlist"}</button><button class="btn primary" onclick="toast('Demo: owner contact request sent')">Contact owner</button></div>`;
+ document.getElementById("modal").classList.add("open");
+}
+function openModal(kind){
+ if(kind==="listing") document.getElementById("modalbox").innerHTML=`<button class="close" onclick="closeModal()">×</button><div class="eyebrow">For homeowners</div><h2>List your room</h2><p class="muted">Add the details renters need to compare your room.</p><form onsubmit="addListing(event)"><div class="formgrid"><div class="field full"><label>LISTING TITLE</label><input name="title" required placeholder="e.g. Furnished room near college"></div><div class="field"><label>AREA</label><input name="area" required placeholder="e.g. Arera Colony"></div><div class="field"><label>CITY</label><input name="city" value="Bhopal" required></div><div class="field"><label>MONTHLY RENT (₹)</label><input name="rent" type="number" min="1" required placeholder="9000"></div><div class="field"><label>SECURITY DEPOSIT</label><input name="deposit" placeholder="₹9,000"></div><div class="field"><label>ROOM TYPE</label><select name="type"><option>1 RK</option><option>1 BHK</option><option>2 BHK</option><option>3 BHK</option><option>4+ BHK</option></select></div><div class="field"><label>AVAILABLE FROM</label><input name="available" type="date" required></div><div class="field full"><label>AMENITIES</label><input name="amenities" placeholder="Wi-Fi, Furnished, AC, Parking"></div><div class="field"><label>OWNER NAME</label><input name="owner" required></div><div class="field"><label>IMAGE URL (optional)</label><input name="img" placeholder="https://..."></div><div class="field full"><label>DESCRIPTION</label><textarea name="desc" placeholder="Tell renters about the room, house rules, nearby places, etc."></textarea></div></div><div class="formactions"><button type="button" class="btn light" onclick="closeModal()">Cancel</button><button class="btn primary">Publish listing</button></div></form>`;
+ document.getElementById("modal").classList.add("open");
+}
+function addListing(e){
+ e.preventDefault();const f=new FormData(e.target);const r={id:Date.now(),title:f.get("title"),area:f.get("area"),city:f.get("city"),rent:+f.get("rent"),deposit:f.get("deposit")||money(f.get("rent")),type:f.get("type"),available:f.get("available"),amenities:String(f.get("amenities")||"").split(",").map(x=>x.trim()).filter(Boolean),owner:f.get("owner"),desc:f.get("desc")||"Room listed by the homeowner.",img:f.get("img")||"https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1000&q=80"};custom.unshift(r);rooms=[...custom,...starter];localStorage.setItem("roomly_custom",JSON.stringify(custom));closeModal();renderRooms();toast("Your room has been listed");window.scrollTo({top:document.getElementById("browse").offsetTop-80,behavior:"smooth"});
+}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>t.style.display="none",2200)}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+renderRooms();renderSaved();
+</script>
+</body>
+</html>
