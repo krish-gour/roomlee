@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820">
+<rect width="1200" height="820" fill="#f6f3eb"/>
+<rect x="0" y="0" width="1200" height="72" fill="#fffdf8" stroke="#e4e2d9"/>
+<text x="74" y="47" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#18231d">room<tspan fill="#2e6249">ly</tspan></text>
+<text x="760" y="43" font-family="Arial,sans-serif" font-size="15" fill="#68736d">Find a room</text>
+<text x="885" y="43" font-family="Arial,sans-serif" font-size="15" fill="#68736d">Shortlist</text>
+<rect x="1000" y="18" width="135" height="38" rx="10" fill="#2e6249"/><text x="1068" y="43" font-family="Arial,sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">List your room</text>
+<text x="74" y="145" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="#3e7b5b">RENT WITHOUT THE HEADACHE</text>
+<text x="74" y="222" font-family="Georgia,serif" font-size="54" font-weight="700" fill="#18231d">Find a room that</text>
+<text x="74" y="278" font-family="Georgia,serif" font-size="54" font-weight="700" fill="#18231d">actually fits your life.</text>
+<text x="74" y="326" font-family="Arial,sans-serif" font-size="17" fill="#68736d">Browse rooms, compare rent and amenities, and save the places</text>
+<text x="74" y="353" font-family="Arial,sans-serif" font-size="17" fill="#68736d">worth checking out. Homeowners can list available rooms.</text>
+<rect x="74" y="390" width="690" height="78" rx="16" fill="#fffdf8" stroke="#e4e2d9"/>
+<text x="98" y="418" font-family="Arial,sans-serif" font-size="11" fill="#68736d">LOCATION</text><text x="98" y="446" font-family="Arial,sans-serif" font-size="15" fill="#18231d">City, neighborhood or room</text>
+<line x1="330" y1="402" x2="330" y2="456" stroke="#e4e2d9"/>
+<text x="352" y="418" font-family="Arial,sans-serif" font-size="11" fill="#68736d">PROPERTY TYPE</text><text x="352" y="446" font-family="Arial,sans-serif" font-size="15" fill="#18231d">Any property type</text>
+<line x1="548" y1="402" x2="548" y2="456" stroke="#e4e2d9"/>
+<text x="570" y="418" font-family="Arial,sans-serif" font-size="11" fill="#68736d">BUDGET</text><text x="570" y="446" font-family="Arial,sans-serif" font-size="15" fill="#18231d">Any budget</text>
+<rect x="670" y="403" width="82" height="52" rx="10" fill="#2e6249"/><text x="711" y="435" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Search</text>
+<rect x="824" y="118" width="300" height="350" rx="24" fill="#2e6249"/>
+<rect x="854" y="145" width="240" height="152" rx="15" fill="#d9d2c6"/>
+<rect x="877" y="210" width="137" height="87" rx="48" fill="#f4eee3"/>
+<rect x="1012" y="172" width="58" height="93" rx="4" fill="#c4d1c8" stroke="#f4eee3" stroke-width="8"/>
+<text x="854" y="353" font-family="Georgia,serif" font-size="29" font-weight="700" fill="#fff">Less scrolling.</text>
+<text x="854" y="390" font-family="Georgia,serif" font-size="29" font-weight="700" fill="#fff">More living.</text>
+<text x="854" y="427" font-family="Arial,sans-serif" font-size="13" fill="#e6eee8">Shortlist rooms before contacting owners.</text>
+<text x="74" y="535" font-family="Arial,sans-serif" font-size="12" letter-spacing="2" font-weight="700" fill="#3e7b5b">BROWSE LISTINGS</text>
+<text x="74" y="578" font-family="Georgia,serif" font-size="34" font-weight="700" fill="#18231d">Rooms available now</text>
+<g>
+<rect x="74" y="610" width="330" height="160" rx="16" fill="#fffdf8" stroke="#e4e2d9"/>
+<rect x="74" y="610" width="330" height="82" rx="16" fill="#cfc9b9"/>
+<rect x="74" y="678" width="330" height="14" fill="#cfc9b9"/>
+<text x="96" y="722" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#18231d">Sunny private room near MP Nagar</text>
+<text x="96" y="747" font-family="Arial,sans-serif" font-size="13" fill="#68736d">MP Nagar, Bhopal · ₹8,500 / month</text>
+<rect x="435" y="610" width="330" height="160" rx="16" fill="#fffdf8" stroke="#e4e2d9"/>
+<rect x="435" y="610" width="330" height="82" rx="16" fill="#c4d1c8"/>
+<rect x="435" y="678" width="330" height="14" fill="#c4d1c8"/>
+<text x="457" y="722" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#18231d">Minimal room in a 2BHK</text>
+<text x="457" y="747" font-family="Arial,sans-serif" font-size="13" fill="#68736d">Kolar Road, Bhopal · ₹7,000 / month</text>
+<rect x="796" y="610" width="330" height="160" rx="16" fill="#fffdf8" stroke="#e4e2d9"/>
+<rect x="796" y="610" width="330" height="82" rx="16" fill="#d8c4b1"/>
+<rect x="796" y="678" width="330" height="14" fill="#d8c4b1"/>
+<text x="818" y="722" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#18231d">Modern studio with balcony</text>
+<text x="818" y="747" font-family="Arial,sans-serif" font-size="13" fill="#68736d">Arera Colony, Bhopal · ₹14,500 / month</text>
+</g>
+<text x="74" y="800" font-family="Arial,sans-serif" font-size="12" fill="#68736d">Static UI overview based on the current frontend structure — not a browser-captured screenshot.</text>
+</svg>
